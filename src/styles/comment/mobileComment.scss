@@ -1,0 +1,66 @@
+.mobile_comment_box_container {
+  position: fixed;
+  //   top: 0;
+  //   bottom: 0;
+  z-index: 99;
+  width: 100vw;
+  overflow: auto;
+  background-color: #242526;
+
+  .like_header {
+    display: flex;
+    border-bottom: 1px #dfdfdf solid;
+    padding: 9px 10px;
+    .likes_count {
+      flex: 2;
+    }
+
+    .like_btn {
+      flex: 2;
+      text-align: right;
+    }
+  }
+
+  .mobile_comment_input_container {
+    position: fixed;
+    bottom: 0;
+    background-color: #242526;
+    width: 100vw;
+    padding: 12px 10px;
+    border-top: 1px #dfdfdf solid;
+    .input_box {
+      position: relative;
+      .send_comment {
+        position: absolute;
+        top: 7px;
+        right: 1rem;
+        .MuiSvgIcon-root {
+          color: royalblue;
+        }
+      }
+    }
+    input {
+      border: 0;
+      outline: 0;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 15px;
+      padding: 10px 1rem;
+      background-color: #3a3b3c;
+      color: #dfdfdf;
+      font-size: 16px;
+      &::placeholder {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// @keyframes comment-section-appear {
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }

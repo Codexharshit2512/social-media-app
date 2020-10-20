@@ -1,0 +1,52 @@
+.register-form-container,
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin-top: 2rem;
+
+  .login-form-heading-container,
+  .register-form-heading-container {
+    img {
+      width: 50px;
+      height: 37px;
+      position: relative;
+      transform: translateX(20%);
+    }
+
+    h2 {
+      margin-top: 12px;
+    }
+  }
+
+  #register-form,
+  #login-form {
+    width: 400px;
+
+    .form-block {
+      margin-bottom: 10px;
+    }
+
+    .register-submit-btn,
+    .login-submit-btn {
+      text-align: center;
+      margin-top: 2rem;
+      button {
+        padding: 8px 4rem;
+        border-radius: 20px;
+        color: floralwhite;
+        background-color: $Primary-color;
+        border: none;
+        font-size: 17px;
+        &:hover {
+          background-color: #1b95e0;
+        }
+      }
+    }
+
+    .MuiFormControl-root {
+      min-width: 100%;
+    }
+  }
+}

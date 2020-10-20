@@ -1,0 +1,40 @@
+.user_detail_image_container {
+  .user_detail_image_inner {
+    width: 60%;
+    margin: 10px auto;
+  }
+  .user_img_cover {
+    background-image: url("../images/final.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    height: 350px;
+    position: relative;
+  }
+  .user_img_profile {
+    position: absolute;
+    bottom: -30px;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 0;
+    background-color: grey;
+    border: 2px solid black;
+    &:hover {
+      filter: hue-rotate(90deg);
+    }
+    img {
+      height: 160px;
+      width: 160px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  }
+
+  .user_name {
+    text-align: center;
+    margin-top: 2rem;
+    color: white;
+  }
+}

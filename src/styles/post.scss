@@ -1,0 +1,126 @@
+body {
+  background-color: #15202b;
+}
+.post-container {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 7px;
+  margin-left: 1rem;
+  border-radius: 10px;
+  border: 1px solid darkgrey;
+  color: floralwhite;
+  // padding: 1.5rem;
+  width: 600px;
+
+  .post-info {
+    display: flex;
+    padding: 0 2rem;
+  }
+
+  .post-text {
+    padding: 0 2rem;
+  }
+
+  .post-user-name {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    p:first-child {
+      font-weight: 700;
+      font-size: 17px;
+    }
+    .post-date {
+      color: #9c9c9c;
+      font-size: 15px;
+      margin-top: 2px;
+    }
+  }
+  .post-user-img img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+  }
+
+  .post-img img {
+    height: 300px;
+    min-width: 100%;
+    margin-top: 13px;
+  }
+
+  .post_popularity_tab {
+    cursor: default;
+    display: flex;
+    margin-top: 10px;
+    padding: 0 2rem;
+    .post_like_count {
+      flex: 2;
+
+      .like_count_icon {
+        display: inline-block;
+        padding: 2px 4px;
+        border-radius: 50%;
+        background-color: royalblue;
+        position: relative;
+        top: 2px;
+
+        .MuiSvgIcon-root {
+          font-size: 16px;
+        }
+      }
+      .like_count_number {
+        margin-left: 5px;
+      }
+    }
+
+    .post_comment_count {
+      flex: 2;
+      text-align: right;
+    }
+  }
+
+  .post_interact_tab {
+    display: flex;
+    padding: 0 2rem;
+    padding-bottom: 2px;
+    margin-top: 1rem;
+    .like_btn,
+    .comment_btn {
+      border-top: 1.3px solid #9c9c9c;
+      flex: 2;
+      padding: 5px 0;
+      text-align: center;
+
+      @media all and (min-width: 420px) {
+        &:hover {
+          background-color: rgba($color: #2e3638, $alpha: 0.7);
+          transition: background-color 400ms;
+          cursor: pointer;
+        }
+      }
+
+      span:last-child {
+        margin-left: 4px;
+      }
+    }
+    .like_interact_icon,
+    .comment_interact_icon {
+      position: relative;
+      top: 6px;
+    }
+  }
+}
+
+@media (max-width: 400px) and (hover: none) {
+  .post-container {
+    width: 100%;
+    margin-left: 0;
+    .post-img img {
+      // height: 300px;
+      height: auto;
+      // min-width: 0;
+      max-width: 100%;
+      object-fit: contain;
+      margin-top: 13px;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.comment_container {
+  display: flex;
+  margin-top: 1rem;
+  .user_comment_pic {
+    img {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+    }
+  }
+  .comment_para {
+    background-color: #3a3b3c;
+    padding: 8px 1rem;
+    border-radius: 25px;
+    margin-left: 10px;
+    .comment_username {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    p:first-child {
+      font-size: 14px;
+    }
+
+    .comment_text {
+      color: #dfdfdf;
+    }
+  }
+}

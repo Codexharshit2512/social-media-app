@@ -1,0 +1,16 @@
+#main-header {
+  .header-container {
+    background-color: $Primary-color;
+    box-shadow: 0.5px 0.5px 5px black;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    color: floralwhite;
+
+    p {
+      margin-right: 1rem;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.comment_box_container {
+  padding: 0 2rem;
+  margin-top: 1rem;
+  animation: comment-section-appear 300ms forwards;
+  .comment_input_container {
+    display: flex;
+
+    .user_comment_input_pic {
+      img {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      }
+    }
+
+    .comment_input {
+      margin-left: 10px;
+      flex: 2;
+      input {
+        border: 0;
+        outline: 0;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 15px;
+        padding: 11px 1rem;
+        background-color: #3a3b3c;
+        color: #dfdfdf;
+
+        &::placeholder {
+          font-size: 17px;
+        }
+      }
+
+      p {
+        color: floralwhite;
+        font-size: 12px;
+        margin-top: 1px;
+        margin-left: 7px;
+      }
+    }
+  }
+}
+
+@keyframes comment-section-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
