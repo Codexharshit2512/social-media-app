@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
 import ThumbUpAltRoundedIcon from "@material-ui/icons/ThumbUpAltRounded";
-import CommentBox from "./comment/CommentBox";
-import MobileCommentBox from "./comment/mobile/MobileCommentBox";
-import manan from "../../images/manan.png";
-import final from "../../images/final.jpg";
+import CommentBox from "../comment/CommentBox";
+import MobileCommentBox from "../comment/mobile/MobileCommentBox";
+import manan from "../../../images/manan.png";
+import final from "../../../images/final.jpg";
 
 const DummyPost = () => {
   const [commentSectionOpen, setOpen] = useState(false);

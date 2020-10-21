@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/global/Header";
 import RegisterForm from "./components/registerForm/RegisterForm";
 import LoginForm from "./components/loginForm/LoginForm";
-import PostForm from "./components/dashboard/PostForm";
+import PostFormContainer from "./components/dashboard/addPost/PostFormContainer";
 import Dashboard from "./screens/Dashboard";
 import UserDetail from "./screens/UserDetail";
 import Test from "./screens/Test";
@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/signUp" component={RegisterForm} />
           <Route exact path="/signIn" component={LoginForm} />
-          <Route exact path="/post" component={PostForm} />
+          <Route exact path="/post" component={PostFormContainer} />
           <Route exact path="/user" component={UserDetail} />
           <Route exact path="/test" component={Test} />
         </Switch>

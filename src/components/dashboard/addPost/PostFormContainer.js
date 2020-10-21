@@ -1,10 +1,11 @@
 import React, { Component, createRef } from "react";
 import PostFormLoader from "./PostFormLoader";
+import PostForm from "./PostForm";
 import { connect } from "react-redux";
-import { addPost } from "../../redux/actionsCreators/postActions";
+import { addPost } from "../../../redux/actionsCreators/postActions";
 import CloseIcon from "@material-ui/icons/Close";
 
-class PostForm extends Component {
+class PostFormContainer extends Component {
   constructor(props) {
     super(props);
     this.fileInputRef = createRef();
@@ -71,47 +72,15 @@ class PostForm extends Component {
     return (
       <div className="post_form-container">
         <h2 className="post_form_container_heading">Create Post</h2>
-        <form onSubmit={this.handleSubmit}>
-          <textarea
-            name="body"
-            id="body_input"
-            cols="30"
-            rows="10"
-            placeholder={"What's on Your Mind,Harshit"}
-            onChange={this.handleChange}
-            value={this.state.body}
-          ></textarea>
-          <div className="add_post_img">
-            <input
-              onChange={this.handleChange}
-              type="file"
-              ref={this.fileInputRef}
-              name="postPic"
-              id="post_pic_upload"
-              hidden
-            />
-            <label htmlFor="post_pic_upload">Add to your post</label>
-            {this.state.pic ? (
-              <div className="post_pic">
-                <img src={this.state.pic} />
-                <span className="close_add_post_img" onClick={this.deletePic}>
-                  <CloseIcon />
-                </span>
-              </div>
-            ) : null}
-          </div>
-          <button
-            type="submit"
-            className={
-              this.state.pic
-                ? "post_form_submit_btn submit_btn_pos_change"
-                : "post_form_submit_btn"
-            }
-          >
-            {this.props.progressLoader ? <PostFormLoader /> : <span>Post</span>}
-            {/* <PostFormLoader /> */}
-          </button>
-        </form>
+        <PostForm
+          submit={this.handleSubmit}
+          change={this.handleChange}
+          body={this.state.body}
+          pic={this.state.pic}
+          delete={this.deletePic}
+          loading={this.props.progressLoader}
+          ref={this.fileInputRef}
+        />
       </div>
     );
   }
@@ -125,4 +94,4 @@ const mapDispatchToProps = (dispatch) => ({
   add: (newPost) => dispatch(addPost(newPost)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PostFormContainer);

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import firebase from "../config/config";
 import { addLike, getLikes } from "../functions/crud";
-import AddPost from "../components/dashboard/AddPost";
-import Post from "../components/dashboard/Post";
-import DummyPost from "../components/dashboard/DummyPost";
+import AddPost from "../components/dashboard/addPost/AddPost";
+import Post from "../components/dashboard/post/Post";
+// import DummyPost from "../components/dashboard/DummyPost";
+import AddPostMobile from "../components/dashboard/addPost/mobile/AddPostMobile";
 import {
   fetchPosts,
   addPost,
@@ -35,6 +36,7 @@ const Dashboard = (props) => {
         <div className="add_post_outer-container">
           <AddPost />
         </div>
+        <AddPostMobile />
         {/* <DummyPost /> */}
         {screams.map((post) => (
           <Post data={post} key={post.id} like={like} unlike={unlike} />
