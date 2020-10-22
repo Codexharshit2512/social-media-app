@@ -10,7 +10,7 @@ const PostUserInfo = (props) => {
       </div>
 
       <div className="post-user-name">
-        <p>kaneki</p>
+        <p>{props.handle}</p>
         <p className="post-date">{new Date(props.date).toLocaleDateString}</p>
       </div>
     </div>

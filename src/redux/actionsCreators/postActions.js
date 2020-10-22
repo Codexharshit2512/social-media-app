@@ -32,6 +32,7 @@ export const fetchPosts = () => {
           }
         });
       }
+      console.log(posts);
       dispatch({ type: types.set_posts, payload: posts });
     });
   };
@@ -134,14 +135,39 @@ export const unlikePost = (postId) => {
   };
 };
 
-// export const addLikesToPosts = (posts, likes) => {
-//   let arr = [];
-//   likes.forEach((like) => {
-//     posts.forEach((post) => {
-//       let liked = false;
-//       if (like.postId == post.id) liked = true;
-//       arr.push({ ...post, isliked: liked });
-//     });
-//   });
-//   return { type: types.set_posts, payload: arr };
-// };
+export const fetchUserPosts = () => {
+  return (dispatch, getState) => {
+    const readUserPosts = firebase
+      .firestore()
+      .collection("posts")
+      .where("handle", "==", "harshit")
+      .get();
+
+    const readPostsLikes = firebase
+      .firestore()
+      .collection("/likes")
+      .where("handle", "==", "kaneki")
+      .get();
+
+    Promise.all([readUserPosts, readPostsLikes]).then((res) => {
+      const posts = res[0].docs;
+      const likes = res[1].docs;
+
+      const userPosts = [],
+        userLikes = [];
+      posts.forEach((post) =>
+        userPosts.push({ ...post.data(), isLiked: false, id: post.id })
+      );
+      likes.forEach((like) => userLikes.push({ ...like.data(), id: like.id }));
+
+      userLikes.forEach((like) => {
+        userPosts.forEach((post, index) => {
+          if (like.postId == post.id)
+            userPosts[index] = { ...userPosts[index], isLiked: true };
+        });
+      });
+      console.log(userPosts);
+      dispatch({ type: types.set_posts, payload: userPosts });
+    });
+  };
+};

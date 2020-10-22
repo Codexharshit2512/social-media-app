@@ -11,7 +11,7 @@ const Post = ({ data, ...rest }) => {
 
   return (
     <div className="post-container">
-      <PostUserInfo date={data.createdAt} />
+      <PostUserInfo date={data.createdAt} handle={data.handle} />
       <p className="post-text">{data.body}</p>
       <div className="post-img">
         {data.postPic ? <img src={data.postPic} alt="post image" /> : null}

@@ -1,0 +1,47 @@
+.user_info_container {
+  padding: 0 1rem;
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: floralwhite;
+  .user_info_header {
+    display: flex;
+
+    .user_info_name {
+      color: floralwhite;
+      font-size: 35px;
+      font-weight: 200;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .user_info_edit_profile_btn {
+      margin-left: 1rem;
+      padding-top: 10px;
+      button {
+        border: 1px solid #c6c6c6;
+        color: floralwhite;
+        padding: 4px 8px;
+        background: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .user_info_post_stats {
+    color: floralwhite;
+    .user_info_post_count {
+      font-size: 17px;
+      margin-right: 2px;
+    }
+  }
+
+  .user_info_bio {
+    display: flex;
+    flex-direction: column;
+    .user_info_location {
+      font-size: 20px;
+      margin-bottom: 7px;
+    }
+  }
+}

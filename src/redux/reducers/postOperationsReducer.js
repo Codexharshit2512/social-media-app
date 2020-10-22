@@ -9,7 +9,6 @@ const initState = {
 export const fetchPostsReducer = (state = initState, action = {}) => {
   switch (action.type) {
     case types.set_posts:
-      console.log(action.payload);
       return { ...state, posts: action.payload };
     case types.add_post:
       const posts = [action.payload].concat(state.posts);

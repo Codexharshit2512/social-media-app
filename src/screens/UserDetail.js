@@ -1,12 +1,18 @@
 import React from "react";
-import UserImage from "../components/userDetails/UserImage";
+// import UserImage from "../components/userDetails/UserImage";
+import UserInfoContainer from "../components/userDetails/UserInfoContainer";
+import UserPosts from "../components/userDetails/UserPosts";
 // import UserPosts from "../components/userDetails/UserPosts";
 
 const UserDetail = () => {
   return (
     <>
-      <UserImage />
-      {/* <UserPosts /> */}
+      <div className="user_detail_container">
+        {/* <UserImage /> */}
+        <UserInfoContainer />
+        {/* <UserPosts /> */}
+        <UserPosts />
+      </div>
     </>
   );
 };

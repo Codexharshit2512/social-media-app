@@ -6,7 +6,11 @@
 @import "./styles/addPost.scss";
 @import "./styles/registerForm.scss";
 @import "./styles/userDetail.scss";
-@import "./styles/profileImgInput.scss";
+// @import "./styles/profileImgInput.scss";
+@import "./styles/userDetail/userDetailContainer.scss";
+@import "./styles/userDetail/userImage.scss";
+@import "./styles/userDetail/userInfo.scss";
+@import "./styles/userDetail/userPosts.scss";
 @import "./styles/comment/commentContainer.scss";
 @import "./styles/comment/comment.scss";
 @import "./styles/comment/mobileComment.scss";

@@ -6,16 +6,13 @@ const UserImage = () => {
   const [profilePic, setProfilePic] = useState(manan);
 
   return (
-    <div className="user_detail_image_container">
-      <div className="user_detail_image_inner">
-        <div className="user_img_cover">
-          <div className="user_img_profile">
-            <img src={profilePic} alt="" />
-            <ProfileImageInput changeProfile={(pic) => setProfilePic(pic)} />
-          </div>
+    <div className="user_image_outer_container">
+      <div className="user_image_inner_container">
+        <div className="user_image">
+          <img src={profilePic} alt="" />
         </div>
-        <div className="user_name">
-          <h1>Harshit Jain</h1>
+        <div className="change_pic_btn">
+          <button type="button">Change Profile Pic</button>
         </div>
       </div>
     </div>
