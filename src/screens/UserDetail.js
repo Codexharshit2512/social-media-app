@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // import UserImage from "../components/userDetails/UserImage";
-import UserInfoContainer from "../components/userDetails/UserInfoContainer";
+import UserInfoContainer from "../components/userDetails/userInfo/UserInfoContainer";
 import UserPosts from "../components/userDetails/UserPosts";
+import { connect } from "react-redux";
+import { fetchUser } from "../redux/actionsCreators/userDetailActions";
 // import UserPosts from "../components/userDetails/UserPosts";
 
-const UserDetail = () => {
+const UserDetail = (props) => {
+  useEffect(() => {
+    props.fetchUser();
+  }, []);
+
   return (
     <>
       <div className="user_detail_container">
-        {/* <UserImage /> */}
         <UserInfoContainer />
-        {/* <UserPosts /> */}
         <UserPosts />
       </div>
     </>
   );
 };
 
-export default UserDetail;
+const mapDispatchToProps = (dispatch) => ({
+  fetchUser: () => dispatch(fetchUser()),
+});
+
+export default connect(null, mapDispatchToProps)(UserDetail);

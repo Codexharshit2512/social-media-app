@@ -1,5 +1,5 @@
 import React from "react";
-import UserImage from "./UserImage";
+import UserImage from "../userImage/UserImage";
 import UserInfo from "./UserInfo";
 
 const UserInfoContainer = () => {

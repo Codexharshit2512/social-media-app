@@ -1,0 +1,73 @@
+.profile_form_container {
+  padding: 1rem 2rem 1.5rem 2rem;
+  background-color: #4b4b4b;
+  position: relative;
+  border: none;
+  h2 {
+    color: black;
+    text-align: center;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #6d6c6c;
+  }
+  .close_modal_btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    padding: 3px 5px;
+    cursor: pointer;
+    .MuiSvgIcon-root {
+      font-size: 20px;
+      color: white;
+    }
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-top: 1rem;
+    label {
+      font-size: 18px;
+    }
+    input,
+    textarea {
+      margin-top: 9px;
+      display: block;
+      width: 100%;
+      background: none;
+      outline: 0;
+      border: 1px solid #6d6c6c;
+      border-radius: 5px;
+      color: white;
+      font-size: 18px;
+      resize: none;
+    }
+
+    input {
+      padding: 8px 10px;
+    }
+
+    .profile_form_submit_btn {
+      padding: 7px 0;
+      width: 100%;
+      text-align: center;
+      font-size: 19px;
+      background: #6d6c6c;
+      box-shadow: 1px 1px 5px black;
+      transition: background 400ms;
+      color: white;
+      cursor: pointer;
+      outline: 0;
+      border: none;
+      border-radius: 6px;
+      @media (min-width: 450px) {
+        &:hover {
+          background: #0081c2;
+        }
+      }
+    }
+  }
+}
