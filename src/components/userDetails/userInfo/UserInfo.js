@@ -4,12 +4,14 @@ import EditProfileBtn from "./EditProfileBtn";
 
 const UserInfo = (props) => {
   // const [profileModalOpen, setProfileModalOpen] = useState(false);
-
+  console.log(props.user.username, props.selectedUserInfo.username);
   return (
     <div className="user_info_container">
       <div className="user_info_header">
         <div className="user_info_name">{props.selectedUserInfo.username}</div>
-        <EditProfileBtn />
+        {props.user.username == props.selectedUserInfo.username ? (
+          <EditProfileBtn />
+        ) : null}
       </div>
       <div className="user_info_post_stats">
         <span className="user_info_post_count">
@@ -32,6 +34,7 @@ const UserInfo = (props) => {
 const mapStateToProps = (state) => ({
   selectedUserPic: state.selectedUser.profilePic,
   selectedUserInfo: state.selectedUser.info,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, null)(UserInfo);

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AddPost from "../dashboard/addPost/AddPost";
 import Post from "../dashboard/post/Post";
-import { connect } from "react-redux";
+import PostSkeletonContainer from "../skeletons/PostSkeletonContainer";
+import { connect, useDispatch } from "react-redux";
 import DummyPost from "../dashboard/post/DummyPost";
 import {
   fetchUserPosts,
@@ -17,13 +19,18 @@ import {
 //   flexDirection: "column",
 // });
 
-const UserPosts = (props) => {
+const UserPosts = ({ user, selectedUser, ...props }) => {
   const [posts, setPosts] = useState([]);
 
+  const { username } = useParams();
+  const dispatch = useDispatch();
+  // console.log(username);
   useEffect(() => {
     if (props.userPosts.length == 0) {
-      props.fetchUserPosts();
+      dispatch({ type: "POSTS_LOADING" });
+      props.fetchUserPosts(username);
     } else {
+      dispatch({ type: "POSTS_LOADING_COMPLETE" });
       setPosts(props.userPosts);
     }
   }, [props.userPosts]);
@@ -34,14 +41,18 @@ const UserPosts = (props) => {
 
   return (
     <div className="user_posts_container">
-      <AddPost />
+      {user.username == selectedUser.username ? <AddPost /> : null}
       <div className="user_posts">
         {/* <DummyPost />
         <DummyPost />
         <DummyPost /> */}
-        {posts.map((post) => (
-          <Post data={post} key={post.id} like={like} unlike={unlike} />
-        ))}
+        {props.loading ? (
+          <PostSkeletonContainer />
+        ) : (
+          posts.map((post) => (
+            <Post data={post} key={post.id} like={like} unlike={unlike} />
+          ))
+        )}
       </div>
     </div>
   );
@@ -49,10 +60,13 @@ const UserPosts = (props) => {
 
 const mapStateToProps = (state) => ({
   userPosts: state.posts.posts,
+  user: state.auth.user,
+  selectedUser: state.selectedUser.info,
+  loading: state.loaders.postsLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUserPosts: () => dispatch(fetchUserPosts()),
+  fetchUserPosts: (username) => dispatch(fetchUserPosts(username)),
   likePost: (postId) => dispatch(likePost(postId)),
   unlikePost: (postId) => dispatch(unlikePost(postId)),
 });

@@ -1,8 +1,15 @@
 @import "./styles/base.scss";
 @import "./styles/constants";
-@import "./styles/Header.scss";
+@import "./styles/header/Header.scss";
+@import "./styles/header/searchBar.scss";
+@import "./styles/header/leftHeader.scss";
+@import "./styles/header/navLinks.scss";
+@import "./styles/header/rightHeader.scss";
+@import "./styles/header/userList.scss";
+@import "./styles/header/mobileSearch/mobileSearch.scss";
 @import "./styles/dashboard.scss";
 @import "./styles/post.scss";
+@import "./styles/skeletons/postSkeleton.scss";
 @import "./styles/addPost.scss";
 @import "./styles/registerForm.scss";
 @import "./styles/userDetail.scss";

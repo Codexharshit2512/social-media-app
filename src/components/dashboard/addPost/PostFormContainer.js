@@ -58,7 +58,6 @@ class PostFormContainer extends Component {
     if (this.state.body != "") {
       this.setState({ loading: true });
       const newPost = {
-        handle: "kaneki",
         body: this.state.body,
         postImg: this.state.postPic,
         createdAt: new Date(),

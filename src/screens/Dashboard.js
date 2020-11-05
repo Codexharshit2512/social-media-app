@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import firebase from "../config/config";
 import { addLike, getLikes } from "../functions/crud";
 import AddPost from "../components/dashboard/addPost/AddPost";
 import Post from "../components/dashboard/post/Post";
+import PostSkeletonContainer from "../components/skeletons/PostSkeletonContainer";
 // import DummyPost from "../components/dashboard/DummyPost";
 import AddPostMobile from "../components/dashboard/addPost/mobile/AddPostMobile";
 import {
@@ -17,18 +18,22 @@ import {
 const Dashboard = (props) => {
   const [screams, setScreams] = useState([]);
 
-  useEffect(() => {
-    if (props.posts.length === 0) {
-      props.fetchPosts();
-    } else {
-      console.log(props.posts);
-      setScreams(props.posts);
-    }
-  }, [props.posts]);
+  const dispatch = useDispatch();
 
-  const like = (postId) => props.likePost(postId);
+  // useEffect(() => {
+  //   if (props.posts.length === 0) {
+  //     dispatch({ type: "POSTS_LOADING" });
+  //     props.fetchPosts();
+  //   } else {
+  //     console.log(props.posts);
+  //     dispatch({ type: "POSTS_LOADING_COMPLETE" });
+  //     setScreams(props.posts);
+  //   }
+  // }, [props.posts]);
 
-  const unlike = (postId) => props.unlikePost(postId);
+  // const like = (postId) => props.likePost(postId);
+
+  // const unlike = (postId) => props.unlikePost(postId);
 
   return (
     <div className="dashboard-container">
@@ -36,11 +41,16 @@ const Dashboard = (props) => {
         <div className="add_post_outer-container">
           <AddPost />
         </div>
-        <AddPostMobile />
+
         {/* <DummyPost /> */}
-        {screams.map((post) => (
-          <Post data={post} key={post.id} like={like} unlike={unlike} />
-        ))}
+        {/* <PostSkeletonContainer /> */}
+        {/* {props.loading ? (
+          <PostSkeletonContainer />
+        ) : (
+          screams.map((post) => (
+            <Post data={post} key={post.id} like={like} unlike={unlike} />
+          ))
+        )} */}
       </div>
       {/* <div className="news">
         <h1>im news</h1>
@@ -52,6 +62,7 @@ const Dashboard = (props) => {
 const mapStateToProps = (state) => ({
   posts: state.posts.posts,
   likes: state.likes.likes,
+  loading: state.loaders.postsLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

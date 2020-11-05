@@ -3,7 +3,8 @@ import {} from "../../functions/crud";
 import * as types from "../actions/actions";
 
 export const fetchPosts = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const state = getState();
     let readPosts = firebase
       .firestore()
       .collection("/posts")
@@ -13,7 +14,7 @@ export const fetchPosts = () => {
     let readLikes = firebase
       .firestore()
       .collection("/likes")
-      .where("handle", "==", "kaneki")
+      .where("handle", "==", state.auth.user.username)
       .get();
 
     Promise.all([readPosts, readLikes]).then((resArr) => {
@@ -32,17 +33,15 @@ export const fetchPosts = () => {
           }
         });
       }
-      console.log(posts);
       dispatch({ type: types.set_posts, payload: posts });
     });
   };
 };
 
 export const addPost = ({ postImg, ...rest }) => {
-  console.log(postImg);
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch({ type: types.add_post_loading });
-
+    const state = getState();
     if (postImg) {
       var storageRef = firebase
         .storage()
@@ -56,7 +55,12 @@ export const addPost = ({ postImg, ...rest }) => {
           firebase
             .firestore()
             .collection("/posts")
-            .add({ ...post, likes: 0, comments: 0 })
+            .add({
+              ...post,
+              handle: state.auth.user.username,
+              likes: 0,
+              comments: 0,
+            })
             .then((doc) => {
               const newDoc = {
                 ...post,
@@ -74,12 +78,18 @@ export const addPost = ({ postImg, ...rest }) => {
       firebase
         .firestore()
         .collection("/posts")
-        .add({ ...post, likes: 0, comments: 0 })
+        .add({
+          ...post,
+          handle: state.auth.user.username,
+          likes: 0,
+          comments: 0,
+        })
         .then((doc) => {
           const newDoc = {
             ...post,
             likes: 0,
             comments: 0,
+            handle: state.auth.user.username,
             id: doc.id,
             isLiked: false,
             createdAt: new Date(post.createdAt).toDateString,
@@ -90,14 +100,26 @@ export const addPost = ({ postImg, ...rest }) => {
   };
 };
 
+export const deletePost = (postId) => {
+  return (dispatch, getState) => {
+    firebase.firestore().doc(`/posts/${postId}`).delete();
+
+    dispatch({ type: types.delete_post, payload: postId });
+  };
+};
+
 export const likePost = (postId) => {
   return (dispatch, getState) => {
-    const newLike = { postId, handle: "kaneki", createdAt: new Date() };
+    const state = getState();
+    const newLike = {
+      postId,
+      handle: state.auth.user.username,
+      createdAt: new Date(),
+    };
     firebase.firestore().collection("/likes").add(newLike);
 
     dispatch({ type: types.add_like, payload: newLike });
 
-    const state = getState();
     let temp = [];
     state.posts.posts.forEach((post) => {
       if (newLike.postId == post.id) temp.push({ ...post, isLiked: true });
@@ -109,11 +131,12 @@ export const likePost = (postId) => {
 
 export const unlikePost = (postId) => {
   return (dispatch, getState) => {
+    const state = getState();
     const query_snap = firebase
       .firestore()
       .collection("/likes")
       .where("postId", "==", postId)
-      .where("handle", "==", "kaneki");
+      .where("handle", "==", state.auth.user.username);
 
     query_snap.get().then((docs) => {
       docs.forEach((doc) => {
@@ -121,8 +144,6 @@ export const unlikePost = (postId) => {
         firebase.firestore().collection("/likes").doc(doc.id).delete();
       });
     });
-
-    const state = getState();
 
     let temp = [];
     state.posts.posts.forEach((post) => {
@@ -135,18 +156,20 @@ export const unlikePost = (postId) => {
   };
 };
 
-export const fetchUserPosts = () => {
+export const fetchUserPosts = (username) => {
   return (dispatch, getState) => {
+    const state = getState();
+    // dispatch({ type: types.set_posts, payload: [] });
     const readUserPosts = firebase
       .firestore()
       .collection("posts")
-      .where("handle", "==", "harshit")
+      .where("handle", "==", username)
       .get();
 
     const readPostsLikes = firebase
       .firestore()
       .collection("/likes")
-      .where("handle", "==", "kaneki")
+      .where("handle", "==", state.auth.user.username)
       .get();
 
     Promise.all([readUserPosts, readPostsLikes]).then((res) => {

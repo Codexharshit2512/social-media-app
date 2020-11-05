@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-// import UserImage from "../components/userDetails/UserImage";
+import { useParams } from "react-router-dom";
 import UserInfoContainer from "../components/userDetails/userInfo/UserInfoContainer";
 import UserPosts from "../components/userDetails/UserPosts";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { fetchUser } from "../redux/actionsCreators/userDetailActions";
-// import UserPosts from "../components/userDetails/UserPosts";
 
 const UserDetail = (props) => {
+  const user = useParams();
+  const dispatch = useDispatch();
   useEffect(() => {
-    props.fetchUser();
+    props.fetchUser(user.username);
+
+    return () => {
+      dispatch({ type: "SET_POSTS", payload: [] });
+    };
   }, []);
 
   return (
@@ -22,7 +27,7 @@ const UserDetail = (props) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(fetchUser()),
+  fetchUser: (user) => dispatch(fetchUser(user)),
 });
 
 export default connect(null, mapDispatchToProps)(UserDetail);

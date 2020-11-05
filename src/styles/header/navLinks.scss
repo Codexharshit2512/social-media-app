@@ -1,0 +1,38 @@
+.nav_links_container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  //   background-color: blue;
+  .nav_link_item {
+    position: relative;
+    width: 70px;
+    padding: 4px 8px;
+    cursor: pointer;
+    // background-color: red;
+    margin-left: 2px;
+    .nav_icon {
+      display: flex;
+      justify-content: center;
+    }
+    .MuiSvgIcon-root {
+      font-size: 30px;
+    }
+  }
+
+  .nav_active {
+    color: white;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: block;
+      height: 4px;
+      width: 100%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background-color: white;
+    }
+  }
+}

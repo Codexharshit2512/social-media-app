@@ -1,0 +1,52 @@
+.skeleton_post_container {
+  width: 600px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  margin-top: 1rem;
+  .MuiSkeleton-rect,
+  .MuiSkeleton-circle,
+  .MuiSkeleton-text {
+    background-color: #646464;
+  }
+}
+
+.skeleton_user_info {
+  display: flex;
+  padding: 10px;
+  .skeleton_user {
+    flex: 2;
+    margin-left: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.skeleton_post_img {
+  margin-top: 12px;
+}
+
+.skeleton_interactive {
+  margin-top: 13px;
+  padding: 10px;
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+  .post_skeleton_container {
+    width: 100%;
+  }
+  .skeleton_post_container {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 400px) and (hover: none) {
+  .post_skeleton_container {
+    width: 100%;
+  }
+  .skeleton_post_container {
+    width: 100%;
+    margin-left: 0;
+  }
+}

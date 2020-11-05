@@ -5,6 +5,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media (max-width: 650px) {
+      align-items: flex-start;
+    }
   }
   .user_image {
     position: relative;
@@ -12,6 +15,11 @@
       width: 170px;
       height: 170px;
       border-radius: 50%;
+      cursor: pointer;
+      @media (max-width: 650px) {
+        width: 90px;
+        height: 90px;
+      }
     }
   }
 

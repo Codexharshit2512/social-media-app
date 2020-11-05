@@ -15,6 +15,19 @@ body {
   .post-info {
     display: flex;
     padding: 0 2rem;
+    position: relative;
+    // background-color: red;
+
+    .delete_post_icon {
+      position: absolute;
+      display: inline-block;
+      top: 6px;
+      right: 50px;
+      .MuiSvgIcon-root {
+        color: gold;
+        cursor: pointer;
+      }
+    }
   }
 
   .post-text {
@@ -28,6 +41,10 @@ body {
     p:first-child {
       font-weight: 700;
       font-size: 17px;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     .post-date {
       color: #9c9c9c;
@@ -106,6 +123,21 @@ body {
     .comment_interact_icon {
       position: relative;
       top: 6px;
+    }
+  }
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+  .post-container {
+    width: 100%;
+    margin-left: 0;
+    .post-img img {
+      // height: 300px;
+      height: auto;
+      // min-width: 0;
+      max-width: 100%;
+      object-fit: contain;
+      margin-top: 13px;
     }
   }
 }

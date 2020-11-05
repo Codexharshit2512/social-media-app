@@ -12,11 +12,6 @@ class ProfileFormContainer extends Component {
       location: this.props.info.location,
       bio: this.props.info.bio,
     };
-    // this.state = {
-    //   username: "",
-    //   location: "",
-    //   bio: "",
-    // };
   }
 
   handleChange = (e) => {
@@ -32,7 +27,11 @@ class ProfileFormContainer extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
-    this.props.edit(this.state);
+    this.props.edit({
+      handle: this.state.username,
+      location: this.state.location,
+      bio: this.state.bio,
+    });
     this.props.close();
   };
 

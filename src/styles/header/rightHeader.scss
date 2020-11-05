@@ -1,0 +1,147 @@
+.right_header_container {
+  flex: 2;
+  position: relative;
+  .toggle_user_info {
+    text-align: center;
+
+    display: flex;
+
+    justify-content: center;
+    .toggle_icon {
+      border: 1px solid white;
+      border-radius: 50%;
+      padding: 3px 5px 0 5px;
+      cursor: pointer;
+      transform: translateX(100px);
+      .MuiSvgIcon-root {
+        padding: 0;
+        transform: scale(1.4);
+      }
+
+      @media (max-width: 500px) {
+        transform: translateX(0);
+      }
+
+      &:hover {
+        background-color: rgba($color: black, $alpha: 0.5);
+        .MuiSvgIcon-root {
+          color: darkblue;
+        }
+      }
+      //   margin-bottom: 12px;
+    }
+
+    .logout_container {
+      position: absolute;
+      top: 100%;
+      left: 13%;
+      width: 340px;
+      z-index: 100;
+      box-shadow: 1px 1px 8px black;
+      padding: 10px 1rem;
+      background-color: #242526;
+      color: white;
+
+      @media (min-width: 500px) and (max-width: 1060px) {
+        left: 0;
+        right: 0;
+        width: auto;
+      }
+
+      @media (min-width: 650px) and (max-width: 780px) {
+        left: 13%;
+        width: 340px;
+      }
+
+      @media (max-width: 470px) {
+        position: fixed;
+        top: 97px;
+        left: 0;
+        right: 0;
+        width: auto;
+      }
+
+      // @media (min-width:680px) {
+
+      // }
+
+      .header_user_info {
+        display: flex;
+        // padding-bottom: 6px;
+        // border-bottom: 1px solid white;
+        cursor: pointer;
+        border-radius: 6px;
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          right: 0;
+          display: block;
+          background-color: white;
+          margin-top: 10px;
+          height: 1px;
+        }
+        @media (min-width: 490px) {
+          &:hover {
+            background-color: #3a3b3c;
+            transition: background-color 300ms;
+          }
+        }
+        .user_name {
+          flex: 2;
+          text-align: left;
+          margin-left: 2rem;
+          .user_name_text {
+            font-size: 17px;
+            font-weight: 500;
+          }
+          p:last-child {
+            font-weight: 200;
+            margin-top: 8px;
+          }
+        }
+        .user_image {
+          img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+          }
+        }
+      }
+
+      .logout_btn {
+        text-align: left;
+        display: flex;
+        cursor: pointer;
+        padding: 5px 3px;
+        margin-top: 1rem;
+        border-radius: 7px;
+        .logout_icon {
+          border-radius: 50%;
+          padding: 3px 5px 0 5px;
+          display: inline-block;
+          transform: translateY(5px);
+          .MuiSvgIcon-root {
+            padding: 0;
+            transform: scale(1.4);
+          }
+        }
+        .logout_text {
+          margin-left: 10px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          margin-top: 3px;
+        }
+        @media (min-width: 410px) {
+          &:hover {
+            background-color: #3a3b3c;
+            transition: background-color 300ms;
+          }
+        }
+      }
+    }
+  }
+}

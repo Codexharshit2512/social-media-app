@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from "react";
+import PostSkeleton from "../components/skeletons/PostSkeleton";
 
 const Test = () => {
-  const [file, setFile] = useState(null);
-
-  useEffect(() => {
-    console.log(file);
-  }, [file]);
-
   return (
     <div>
-      <label htmlFor="file">Choose file</label>
-      <input
-        onChange={(e) => setFile(e.target.files.length)}
-        type="file"
-        name="fileinput"
-        id="fileI"
-      />
+      <PostSkeleton />
     </div>
   );
 };

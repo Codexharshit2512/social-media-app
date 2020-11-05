@@ -1,12 +1,12 @@
 import firebase from "../../config/config";
 import * as types from "../actions/actions";
 
-export const fetchUser = () => {
+export const fetchUser = (user) => {
   return (dispatch) => {
     firebase
       .firestore()
       .collection("/users")
-      .where("handle", "==", "harshit")
+      .where("handle", "==", user)
       .get()
       .then((doc) => {
         console.log(doc);
@@ -19,8 +19,9 @@ export const fetchUser = () => {
 };
 
 export const changeUserProfilePic = (img) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     var url;
+    const state = getState();
     dispatch({ type: types.profile_pic_uploading });
     firebase
       .storage()
@@ -34,7 +35,7 @@ export const changeUserProfilePic = (img) => {
         return firebase
           .firestore()
           .collection("/users")
-          .where("handle", "==", "harshit")
+          .where("handle", "==", state.auth.user.username)
           .get();
       })
       .then((docs) => {
@@ -51,9 +52,10 @@ export const changeUserProfilePic = (img) => {
 export const editProfileInfo = (info) => {
   return (dispatch, getState) => {
     const currentInfo = getState().selectedUser.info;
+    const state = getState();
     firebase
       .firestore()
-      .doc("/users/harshit")
+      .doc(`/users/${state.auth.user.username}`)
       .update({ ...info });
     dispatch({ type: types.change_user_info, payload: info });
   };

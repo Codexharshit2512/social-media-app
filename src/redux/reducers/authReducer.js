@@ -1,5 +1,16 @@
-export const authReducer = (state, action) => {
+const initState = {
+  user: {
+    uid: null,
+    username: "harshit",
+    photo: null,
+    email: null,
+  },
+  isAuthenticated: false,
+};
+
+export const authReducer = (state = initState, action) => {
   switch (action.type) {
-    case "LOGIN_SUCCESS":
+    default:
+      return state;
   }
 };

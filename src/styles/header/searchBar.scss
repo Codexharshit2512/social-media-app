@@ -1,0 +1,87 @@
+// * {
+//   box-sizing: border-box;
+// }
+.header_search_bar_container {
+  @media (min-width: 781px) {
+    flex: 2;
+  }
+
+  @media (max-width: 780px) {
+    flex-basis: 70%;
+  }
+
+  @media (max-width: 780px) {
+    flex-basis: 60%;
+  }
+
+  .search_bar_box {
+    input {
+      @media (max-width: 1300px) {
+        width: 80%;
+      }
+      @media (min-width: 1301px) {
+        width: 60%;
+      }
+      @media (max-width: 780px) {
+        width: 70%;
+      }
+
+      @media (max-width: 600px) {
+        width: 75%;
+      }
+
+      @media (max-width: 470px) {
+        display: none;
+      }
+
+      margin-left: 2rem;
+      padding: 7px 13px;
+      border-radius: 15px;
+      border: none;
+      outline: 0;
+      color: white;
+      &::placeholder {
+        color: white;
+        transform: translateX(10%);
+        @media (max-width: 850px) and (min-width: 700px) {
+          transform: translateX(12%);
+        }
+        @media (max-width: 600px) {
+          transform: translateX(13%);
+        }
+      }
+      background: #676767;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .input_wrapper {
+      position: relative;
+
+      .desktop_search_icon .MuiSvgIcon-root {
+        position: absolute;
+        top: 0;
+        left: 13%;
+        @media (max-width: 850px) and (min-width: 700px) {
+          left: 15%;
+        }
+
+        @media (max-width: 600px) {
+          left: 17%;
+        }
+
+        @media (max-width: 499px) {
+          display: none;
+        }
+      }
+
+      .mobile_search_icon {
+        display: flex;
+
+        @media (min-width: 470px) {
+          display: none;
+        }
+        justify-content: center;
+      }
+    }
+  }
+}
