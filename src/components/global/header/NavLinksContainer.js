@@ -1,7 +1,8 @@
 import React from "react";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
 import TheatersRoundedIcon from "@material-ui/icons/TheatersRounded";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+
+import NotificationsContainer from "./notifications/NotificationsContainer";
 import { useHistory } from "react-router-dom";
 
 const NavLinksContainer = () => {
@@ -31,9 +32,7 @@ const NavLinksContainer = () => {
         </div>
       </div>
       <div className="nav_link_item">
-        <div>
-          <NotificationsIcon />
-        </div>
+        <NotificationsContainer />
       </div>
       {/* <div className="nav_link_item">
         <span>LOGIN</span>

@@ -18,7 +18,7 @@ const CommentBox = ({ postId }) => {
         snapshot.forEach((doc) =>
           commentsArr.push({ ...doc.data(), id: doc.id })
         );
-        console.log(commentsArr);
+
         setComments(commentsArr);
       });
   }, []);

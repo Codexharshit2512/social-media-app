@@ -1,7 +1,7 @@
 const initState = {
   user: {
     uid: null,
-    username: "harshit",
+    username: "naruto",
     photo: null,
     email: null,
   },

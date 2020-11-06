@@ -1,14 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
+import UserInfoSkeletonContainer from "../../skeletons/UserInfoSkeletonContainer";
 import UserImage from "../userImage/UserImage";
 import UserInfo from "./UserInfo";
 
-const UserInfoContainer = () => {
+const UserInfoContainer = (props) => {
   return (
     <div className="user_detail_info_container">
-      <UserImage />
-      <UserInfo />
+      {props.loading ? (
+        <UserInfoSkeletonContainer />
+      ) : (
+        <>
+          <UserImage />
+          <UserInfo />
+        </>
+      )}
     </div>
   );
 };
 
-export default UserInfoContainer;
+const mapStateToProps = (state) => ({
+  loading: state.loaders.userInfoLoading,
+});
+
+export default connect(mapStateToProps, null)(UserInfoContainer);

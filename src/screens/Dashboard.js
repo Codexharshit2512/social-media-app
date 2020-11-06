@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import firebase from "../config/config";
-import { addLike, getLikes } from "../functions/crud";
+
 import AddPost from "../components/dashboard/addPost/AddPost";
 import Post from "../components/dashboard/post/Post";
 import PostSkeletonContainer from "../components/skeletons/PostSkeletonContainer";

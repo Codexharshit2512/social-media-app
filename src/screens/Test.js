@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import PostSkeleton from "../components/skeletons/PostSkeleton";
+// import PostSkeleton from "../components/skeletons/PostSkeleton";
+import UserInfoSkeletonContainer from "../components/skeletons/UserInfoSkeletonContainer";
 
 const Test = () => {
   return (
     <div>
-      <PostSkeleton />
+      <UserInfoSkeletonContainer />
     </div>
   );
 };

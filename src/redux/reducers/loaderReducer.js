@@ -3,6 +3,7 @@ import * as types from "../actions/actions";
 const initState = {
   profilePicUploading: false,
   postsLoading: true,
+  userInfoLoading: true,
 };
 
 export const loaderReducer = (state = initState, action = {}) => {
@@ -15,6 +16,10 @@ export const loaderReducer = (state = initState, action = {}) => {
       return { ...state, postsLoading: true };
     case types.posts_loading_complete:
       return { ...state, postsLoading: false };
+    case types.user_info_loading:
+      return { ...state, userInfoLoading: true };
+    case types.user_info_complete:
+      return { ...state, userInfoLoading: false };
     default:
       return state;
   }

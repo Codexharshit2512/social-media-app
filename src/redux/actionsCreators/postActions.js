@@ -1,5 +1,5 @@
 import firebase from "../../config/config";
-import {} from "../../functions/crud";
+
 import * as types from "../actions/actions";
 
 export const fetchPosts = () => {
@@ -118,11 +118,17 @@ export const likePost = (postId) => {
     };
     firebase.firestore().collection("/likes").add(newLike);
 
+    firebase
+      .firestore()
+      .doc(`/posts/${postId}`)
+      .update({ likes: firebase.firestore.FieldValue.increment(1) });
+
     dispatch({ type: types.add_like, payload: newLike });
 
     let temp = [];
     state.posts.posts.forEach((post) => {
-      if (newLike.postId == post.id) temp.push({ ...post, isLiked: true });
+      if (newLike.postId == post.id)
+        temp.push({ ...post, isLiked: true, likes: post.likes + 1 });
       else temp.push({ ...post });
     });
     dispatch({ type: types.set_posts, payload: temp });
@@ -132,6 +138,10 @@ export const likePost = (postId) => {
 export const unlikePost = (postId) => {
   return (dispatch, getState) => {
     const state = getState();
+    firebase
+      .firestore()
+      .doc(`/posts/${postId}`)
+      .update({ likes: firebase.firestore.FieldValue.increment(-1) });
     const query_snap = firebase
       .firestore()
       .collection("/likes")
@@ -147,7 +157,8 @@ export const unlikePost = (postId) => {
 
     let temp = [];
     state.posts.posts.forEach((post) => {
-      if (postId == post.id) temp.push({ ...post, isLiked: false });
+      if (postId == post.id)
+        temp.push({ ...post, isLiked: false, likes: post.likes - 1 });
       else temp.push({ ...post });
     });
     dispatch({ type: types.set_posts, payload: temp });

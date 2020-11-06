@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { signUpUser } from "../../redux/actionsCreators/authActions";
 import TextField from "@material-ui/core/TextField";
-import { submitSignUp } from "../../auth/auth";
 import monkey from "../../images/monkey.svg";
 
 export class RegisterForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       handle: "",
@@ -24,14 +25,13 @@ export class RegisterForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(submitSignUp({ ...this.state }));
+    const { email, handle, password, confirmPassword } = this.state;
+    const user = { email, handle, password, confirmPassword };
+    this.props.dispatch(signUpUser(user));
   };
 
-  //   componentDidUpdate() {
-  //     console.log(this.state);
-  //   }
-
   render() {
+    const { errors } = this.props;
     return (
       <div className="register-form-container">
         <div className="register-form-heading-container">
@@ -48,6 +48,12 @@ export class RegisterForm extends Component {
               onChange={this.handleChange}
               name="email"
             />
+            <div
+              className="error_field"
+              style={{ fontSize: "13px", color: "red", marginTop: "5px" }}
+            >
+              {errors.email ? errors.email : null}
+            </div>
           </div>
           <div className="form-block">
             <TextField
@@ -56,6 +62,12 @@ export class RegisterForm extends Component {
               onChange={this.handleChange}
               name="handle"
             />
+            <div
+              className="error_field"
+              style={{ fontSize: "13px", color: "red", marginTop: "5px" }}
+            >
+              {errors.handle ? errors.handle : null}
+            </div>
           </div>
           <div className="form-block">
             <TextField
@@ -64,6 +76,12 @@ export class RegisterForm extends Component {
               onChange={this.handleChange}
               name="password"
             />
+            <div
+              className="error_field"
+              style={{ fontSize: "13px", color: "red", marginTop: "5px" }}
+            >
+              {errors.password ? errors.password : null}
+            </div>
           </div>
           <div className="form-block">
             <TextField
@@ -72,6 +90,12 @@ export class RegisterForm extends Component {
               onChange={this.handleChange}
               name="confirmPassword"
             />
+            <div
+              className="error_field"
+              style={{ fontSize: "13px", color: "red", marginTop: "5px" }}
+            >
+              {errors.confirmPassword ? errors.confirmPassword : null}
+            </div>
           </div>
           <div className="register-submit-btn">
             <button type="submit">Sign Up</button>
@@ -82,4 +106,8 @@ export class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+const mapStateToProps = (state) => ({
+  errors: state.validation.signUpErrors,
+});
+
+export default connect(mapStateToProps, null)(RegisterForm);

@@ -3,17 +3,18 @@ import * as types from "../actions/actions";
 
 export const fetchUser = (user) => {
   return (dispatch) => {
+    dispatch({ type: types.user_info_loading });
     firebase
       .firestore()
       .collection("/users")
       .where("handle", "==", user)
       .get()
       .then((doc) => {
-        console.log(doc);
         dispatch({
           type: types.set_selected_user_info,
           payload: doc.docs[0].data(),
         });
+        dispatch({ type: types.user_info_complete });
       });
   };
 };

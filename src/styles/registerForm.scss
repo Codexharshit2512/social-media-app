@@ -17,12 +17,17 @@
 
     h2 {
       margin-top: 12px;
+      color: white;
     }
   }
 
   #register-form,
   #login-form {
     width: 400px;
+
+    @media (max-width: 450px) {
+      width: 95%;
+    }
 
     .form-block {
       margin-bottom: 10px;
@@ -47,6 +52,19 @@
 
     .MuiFormControl-root {
       min-width: 100%;
+      .MuiInputLabel-root {
+        color: white;
+      }
+
+      .MuiInputBase-root {
+        color: white;
+      }
+      .MuiInput-underline:before {
+        border-bottom: 1px solid gold;
+      }
+      .MuiInput-underline:after {
+        border-bottom: 2px solid rgb(29, 161, 242);
+      }
     }
   }
 }

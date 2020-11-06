@@ -1,39 +1,40 @@
-import { checkEmail, checkPassword } from "./validationUtils";
+import { checkEmail, checkPassword, checkHandle } from "./validationUtils";
 
-export const validateSignUp = ({ email, password, confirmPassword }) => {
+export const validateSignUp = ({
+  email,
+  handle,
+  password,
+  confirmPassword,
+}) => {
   let errors = [];
-  if (!checkEmail(email)) {
-    let message;
-    if (email === "") {
-      message = "Email must not be empty";
-    } else message = "Emain is not valid";
-    errors.push({ field: "email", message });
+  let emailError = checkEmail(email);
+  if (emailError) {
+    errors.push(emailError);
+  }
+  let handleError = checkHandle(handle);
+  if (handleError) {
+    errors.push(handleError);
   }
   const passwordErrors = checkPassword(password, confirmPassword);
   if (passwordErrors.length !== 0)
     passwordErrors.forEach((pError) => errors.push(pError));
 
-  return errors;
+  if (errors.length == 0) return { errors: null };
+  else return { errors };
 };
 
-export const validateLogin = (email, password) => {
+export const validateLogin = ({ email, password }) => {
   let errors = [];
-  let errorObj, errorMsg;
-  if (!checkEmail(email)) {
-    if (email == "") {
-      errorMsg = "Email cannot be empty";
-      errorObj = { field: "email", message: errorMsg };
-      errors.push(errorObj);
-    } else {
-      errorMsg = "Email not valid";
-      errorObj = { field: "email", message: errorMsg };
-      errors.push(errorObj);
-    }
+  console.log(email, password);
+  let emailError = checkEmail(email);
+  if (emailError) {
+    errors.push(emailError);
+    console.log(emailError);
   }
-  if (password == "") {
-    errorMsg = "Password cannot be empty";
-    errorObj = { field: "password", message: errorMsg };
-    errors.push(errorObj);
-  }
-  return { errors };
+  const passwordErrors = checkPassword(password, null);
+  if (passwordErrors.length !== 0)
+    passwordErrors.forEach((pError) => errors.push(pError));
+
+  if (errors.length == 0) return { errors: null };
+  else return { errors };
 };

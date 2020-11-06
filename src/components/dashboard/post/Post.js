@@ -17,7 +17,7 @@ const Post = ({ data, ...rest }) => {
         {data.postPic ? <img src={data.postPic} alt="post image" /> : null}
         {/* <img src={final} alt="post image" /> */}
       </div>
-      <PostPopularityTab />
+      <PostPopularityTab data={data} />
       <PostInteractTab
         isLiked={data.isLiked}
         unlike={rest.unlike}

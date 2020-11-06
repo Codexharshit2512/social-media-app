@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import UserInfoContainer from "../components/userDetails/userInfo/UserInfoContainer";
 import UserPosts from "../components/userDetails/UserPosts";
 import { connect, useDispatch } from "react-redux";
+
 import { fetchUser } from "../redux/actionsCreators/userDetailActions";
 
 const UserDetail = (props) => {
@@ -20,6 +21,7 @@ const UserDetail = (props) => {
     <>
       <div className="user_detail_container">
         <UserInfoContainer />
+
         <UserPosts />
       </div>
     </>

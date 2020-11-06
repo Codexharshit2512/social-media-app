@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import TextField from "@material-ui/core/TextField";
-import { submitSignUp } from "../../auth/auth";
+import { connect } from "react-redux";
+import { signInUser } from "../../redux/actionsCreators/authActions";
 import monkey from "../../images/monkey.svg";
 
 export class LoginForm extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
+      email: "",
       password: "",
     };
   }
@@ -22,8 +23,7 @@ export class LoginForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(submitSignUp({ ...this.state }));
-    console.log(this.state);
+    this.props.dispatch(signInUser(this.state));
   };
 
   //   componentDidUpdate() {
@@ -31,6 +31,7 @@ export class LoginForm extends Component {
   //   }
 
   render() {
+    const { errors } = this.props;
     return (
       <div className="login-form-container">
         <div className="login-form-heading-container">
@@ -48,10 +49,16 @@ export class LoginForm extends Component {
           <div className="form-block">
             <TextField
               label={"Email"}
-              value={this.state.username}
+              value={this.state.email}
               onChange={this.handleChange}
-              name="username"
+              name="email"
             />
+            <div
+              className="error_field"
+              style={{ fontSize: "13px", color: "red", marginTop: "5px" }}
+            >
+              {errors.email ? errors.email : null}
+            </div>
           </div>
 
           <div className="form-block">
@@ -61,6 +68,12 @@ export class LoginForm extends Component {
               onChange={this.handleChange}
               name="password"
             />
+            <div
+              className="error_field"
+              style={{ fontSize: "13px", color: "red", marginTop: "5px" }}
+            >
+              {errors.password ? errors.password : null}
+            </div>
           </div>
 
           <div className="login-submit-btn">
@@ -72,4 +85,8 @@ export class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => ({
+  errors: state.validation.signInErrors,
+});
+
+export default connect(mapStateToProps, null)(LoginForm);
