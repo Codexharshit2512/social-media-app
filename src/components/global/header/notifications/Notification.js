@@ -1,15 +1,18 @@
 import React from "react";
-import manan from "../../../../images/manan.png";
 
-const Notification = () => {
+const Notification = ({ data }) => {
   return (
     <li className="notification_item">
       <div className="sender_avatar">
-        <img src={manan} alt="" />
+        <img src={data.userPic} alt="sender pic" />
       </div>
       <div className="notification_text">
-        <p>Micah liked your Post</p>
+        <p>
+          {data.sender}{" "}
+          {data.type == "like" ? "liked your post" : "commented on your post"}
+        </p>
       </div>
+      {!data.read ? <p className="new">new</p> : null}
     </li>
   );
 };

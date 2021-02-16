@@ -5,6 +5,8 @@ import { selectedUserReducer } from "./selectedUserReducer";
 import { loaderReducer } from "./loaderReducer";
 import { authReducer } from "./authReducer";
 import { validationReducer } from "./validationReducer";
+import { searchUsersReducer } from "./searchUsersReducer";
+import { notificationsReducer } from "./notificationsReducer";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,4 +15,6 @@ export const rootReducer = combineReducers({
   likes: likesReducer,
   selectedUser: selectedUserReducer,
   loaders: loaderReducer,
+  users: searchUsersReducer,
+  notifications: notificationsReducer,
 });

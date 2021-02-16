@@ -41,7 +41,7 @@ export function checkPassword(password, confirmPassword) {
       errors.push(errorObj);
     }
   }
-  if (!confirmPassword) return errors;
+  if (confirmPassword == null) return errors;
   if (confirmPassword !== password) {
     errorMsg = "Password does not match";
     errorObj = {};

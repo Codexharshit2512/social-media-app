@@ -5,19 +5,12 @@ import Post from "../dashboard/post/Post";
 import PostSkeletonContainer from "../skeletons/PostSkeletonContainer";
 import { connect, useDispatch } from "react-redux";
 import DummyPost from "../dashboard/post/DummyPost";
+import UserPostErrorMsg from "./UserPostErrorMsg";
 import {
   fetchUserPosts,
   likePost,
   unlikePost,
 } from "../../redux/actionsCreators/postActions";
-// import { css } from "glamor";
-
-// const user_posts_container = css({
-//   width: "40%",
-//   margin: "10px auto",
-//   display: "flex",
-//   flexDirection: "column",
-// });
 
 const UserPosts = ({ user, selectedUser, ...props }) => {
   const [posts, setPosts] = useState([]);
@@ -26,13 +19,10 @@ const UserPosts = ({ user, selectedUser, ...props }) => {
   const dispatch = useDispatch();
   // console.log(username);
   useEffect(() => {
-    if (props.userPosts.length == 0) {
-      dispatch({ type: "POSTS_LOADING" });
-      props.fetchUserPosts(username);
-    } else {
-      dispatch({ type: "POSTS_LOADING_COMPLETE" });
-      setPosts(props.userPosts);
-    }
+    props.fetchUserPosts(props.uid);
+  }, [props.uid]);
+  useEffect(() => {
+    setPosts(props.userPosts);
   }, [props.userPosts]);
 
   const like = (postId) => props.likePost(postId);
@@ -43,11 +33,10 @@ const UserPosts = ({ user, selectedUser, ...props }) => {
     <div className="user_posts_container">
       {user.username == selectedUser.username ? <AddPost /> : null}
       <div className="user_posts">
-        {/* <DummyPost />
-        <DummyPost />
-        <DummyPost /> */}
         {props.loading ? (
           <PostSkeletonContainer />
+        ) : posts.length == 0 ? (
+          <UserPostErrorMsg />
         ) : (
           posts.map((post) => (
             <Post data={post} key={post.id} like={like} unlike={unlike} />

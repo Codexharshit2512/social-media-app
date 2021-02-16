@@ -8,9 +8,10 @@
 
     justify-content: center;
     .toggle_icon {
-      border: 1px solid white;
+      // border: 1px solid white;
       border-radius: 50%;
       padding: 3px 5px 0 5px;
+      background-color: #4e4f50;
       cursor: pointer;
       transform: translateX(100px);
       .MuiSvgIcon-root {
@@ -22,13 +23,20 @@
         transform: translateX(0);
       }
 
-      &:hover {
-        background-color: rgba($color: black, $alpha: 0.5);
-        .MuiSvgIcon-root {
-          color: darkblue;
+      @media (min-width: 500px) {
+        &:hover {
+          filter: brightness(1.7);
+          // background-color: red;
         }
       }
       //   margin-bottom: 12px;
+    }
+
+    .icon_active {
+      .MuiSvgIcon-root {
+        color: darkblue;
+      }
+      background-color: #3c4d63;
     }
 
     .logout_container {
@@ -56,14 +64,11 @@
       @media (max-width: 470px) {
         position: fixed;
         top: 97px;
-        left: 0;
-        right: 0;
+        left: 10px;
+        right: 10px;
         width: auto;
+        border-radius: 7px;
       }
-
-      // @media (min-width:680px) {
-
-      // }
 
       .header_user_info {
         display: flex;

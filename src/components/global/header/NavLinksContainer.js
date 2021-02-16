@@ -1,21 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 import HomeRoundedIcon from "@material-ui/icons/HomeRounded";
-import TheatersRoundedIcon from "@material-ui/icons/TheatersRounded";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 import NotificationsContainer from "./notifications/NotificationsContainer";
 import { useHistory } from "react-router-dom";
 
-const NavLinksContainer = () => {
+const NavLinksContainer = (props) => {
   const history = useHistory();
+
+  const [active, setActive] = useState(null);
+
+  const uid = useSelector((state) => state.auth.user.uid);
+
+  useEffect(() => {
+    setActive(props.history.location.pathname);
+  }, [props]);
+
+  const handleClick = (path) => {
+    if (path == "/") {
+      if (history.location.pathname !== path) {
+        history.push(path);
+        setActive("/");
+      }
+    } else if (path == `/user/${uid}`) {
+      if (history.location.pathname !== path) {
+        history.push(path);
+        setActive(`/user/${uid}`);
+      }
+    }
+  };
+
   return (
     <div className="nav_links_container">
       <div className="nav_link_item">
         <div
-          className={
-            history.location.pathname == "/"
-              ? "nav_icon nav_active"
-              : "nav_icon"
-          }
+          className={active == "/" ? "nav_icon nav_active" : "nav_icon"}
+          onClick={() => handleClick("/")}
         >
           <HomeRoundedIcon />
         </div>
@@ -23,25 +45,18 @@ const NavLinksContainer = () => {
       <div className="nav_link_item">
         <div
           className={
-            history.location.pathname == "/videos"
-              ? "nav_icon nav_active"
-              : "nav_icon"
+            active == `/user/${uid}` ? "nav_icon nav_active" : "nav_icon"
           }
+          onClick={() => handleClick(`/user/${uid}`)}
         >
-          <TheatersRoundedIcon />
+          <AccountCircleIcon />
         </div>
       </div>
       <div className="nav_link_item">
         <NotificationsContainer />
       </div>
-      {/* <div className="nav_link_item">
-        <span>LOGIN</span>
-      </div>
-      <div className="nav_link_item">
-        <span>SIGNUP</span>
-      </div> */}
     </div>
   );
 };
 
-export default NavLinksContainer;
+export default withRouter(NavLinksContainer);

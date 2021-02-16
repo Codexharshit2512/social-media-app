@@ -45,10 +45,14 @@
   align-items: center;
   width: 170px;
   height: 170px;
-  background: rgba($color: white, $alpha: 0.4);
+  background: rgba($color: #c6c6c6, $alpha: 0.3);
+  filter: brightness(1.8);
   border-radius: 50%;
-
-  .css-551zx1 {
-    left: 25px;
+  @media (max-width: 650px) {
+    width: 90px;
+    height: 90px;
+    .ecPYAj {
+      transform: scale(0.7);
+    }
   }
 }

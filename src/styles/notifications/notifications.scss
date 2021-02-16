@@ -1,6 +1,23 @@
 .notifications_container {
   position: relative;
 
+  .notification_link {
+    span {
+      position: relative;
+    }
+
+    .notification_count_container {
+      position: absolute;
+      top: -15px;
+      right: 2px;
+      background-color: red;
+      border-radius: 50%;
+      padding: 1px 3px 1px 3px;
+      font-size: 10px;
+      color: white;
+    }
+  }
+
   .notifications_list_container {
     h2 {
       font-weight: 700;
@@ -20,32 +37,34 @@
     padding: 12px 1rem;
     color: white;
 
-    &::-webkit-scrollbar {
-      width: 10px;
-      visibility: hidden;
-      transition: visibility 400ms;
+    @media (max-width: 450px) {
+      right: 200%;
+      left: -320%;
+      width: 300px;
     }
 
-    // @media (min-width: 500px) {
-    //   &:hover::-webkit-scrollbar {
-    //     visibility: visible;
-    //   }
-    // }
+    @media (min-width: 500px) {
+      &::-webkit-scrollbar {
+        width: 10px;
+        visibility: hidden;
+        transition: visibility 400ms;
+      }
 
-    /* Track */
-    &::-webkit-scrollbar-track {
-      background: none;
-    }
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: none;
+      }
 
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 10px;
-    }
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
 
-    /* Handle on hover */
-    &::-webkit-scrollbar-thumb:hover {
-      background: #555;
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
     }
 
     .notifications_list {
@@ -63,11 +82,23 @@
             transition: background-color 300ms;
           }
         }
+        @media (max-width: 450px) {
+          margin-top: 35px;
+          &:first-child {
+            margin-top: 10px;
+          }
+        }
         .sender_avatar {
           img {
             height: 60px;
             width: 60px;
             border-radius: 50%;
+          }
+          @media (max-width: 450px) {
+            img {
+              height: 45px;
+              width: 45px;
+            }
           }
         }
         .notification_text {
@@ -75,6 +106,16 @@
           display: flex;
           align-items: center;
           margin-left: 1rem;
+          font-size: 14px;
+        }
+        .new {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: red;
+          font-size: 12px;
+          font-weight: 500;
         }
       }
     }

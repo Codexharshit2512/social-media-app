@@ -7,7 +7,10 @@ const RightHeaderPart = () => {
   return (
     <div className="right_header_container">
       <div className="toggle_user_info">
-        <span onClick={() => setOpen((prev) => !prev)} className="toggle_icon">
+        <span
+          onClick={() => setOpen((prev) => !prev)}
+          className={open ? "toggle_icon icon_active" : "toggle_icon"}
+        >
           <ArrowDropDownRoundedIcon />
         </span>
         {open ? <LogoutContainer /> : null}

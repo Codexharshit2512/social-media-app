@@ -1,12 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import { changeUserProfilePic } from "../../../redux/actionsCreators/userDetailActions";
+import {
+  changeUserProfilePic,
+  removeUserPic,
+} from "../../../redux/actionsCreators/userDetailActions";
 
 const ProfilePicInputModal = (props) => {
   const handleSubmit = (e) => {
     const img = e.target.files[0];
     props.changePic(img);
     props.close();
+  };
+
+  const handleRemove = () => {
+    props.close();
+    props.removePic();
   };
 
   return (
@@ -26,9 +34,15 @@ const ProfilePicInputModal = (props) => {
           hidden
         />
       </div>
-      <div style={{ color: "red" }} className="remove_profile_pic_btn">
-        <p>Remove Profile Pic</p>
-      </div>
+      {props.isProfilePic ? (
+        <div
+          onClick={handleRemove}
+          style={{ color: "red" }}
+          className="remove_profile_pic_btn"
+        >
+          <p>Remove Profile Pic</p>
+        </div>
+      ) : null}
       <div className="close_profile_input_modal" onClick={props.close}>
         <p>Cancel</p>
       </div>
@@ -38,6 +52,14 @@ const ProfilePicInputModal = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
   changePic: (img) => dispatch(changeUserProfilePic(img)),
+  removePic: () => dispatch(removeUserPic()),
 });
 
-export default connect(null, mapDispatchToProps)(ProfilePicInputModal);
+const mapStateToProps = (state) => ({
+  isProfilePic: state.selectedUser.isProfilePic,
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfilePicInputModal);

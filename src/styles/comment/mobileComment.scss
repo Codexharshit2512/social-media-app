@@ -1,23 +1,32 @@
 .mobile_comment_box_container {
   position: fixed;
-  //   top: 0;
-  //   bottom: 0;
-  z-index: 99;
-  width: 100vw;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  // width: 100vw;
   overflow: auto;
   background-color: #242526;
+  animation: mobile_comment_appear 200ms linear forwards;
+
+  .comments {
+    overflow-y: auto;
+  }
 
   .like_header {
     display: flex;
     border-bottom: 1px #dfdfdf solid;
     padding: 9px 10px;
-    .likes_count {
-      flex: 2;
+    h2 {
+      margin-left: 10px;
     }
 
-    .like_btn {
+    div {
       flex: 2;
+      font-size: 25px;
       text-align: right;
+      transform: translateY(-2px);
     }
   }
 
@@ -56,11 +65,11 @@
   }
 }
 
-// @keyframes comment-section-appear {
-//   from {
-//     opacity: 0;
-//   }
-//   to {
-//     opacity: 1;
-//   }
-// }
+@keyframes mobile_comment_appear {
+  from {
+    transform: translateY(200%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

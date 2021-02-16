@@ -4,6 +4,7 @@ const initState = {
   profilePicUploading: false,
   postsLoading: true,
   userInfoLoading: true,
+  validatingCreds: false,
 };
 
 export const loaderReducer = (state = initState, action = {}) => {
@@ -20,6 +21,10 @@ export const loaderReducer = (state = initState, action = {}) => {
       return { ...state, userInfoLoading: true };
     case types.user_info_complete:
       return { ...state, userInfoLoading: false };
+    case types.validate_creds_begin:
+      return { ...state, validatingCreds: true };
+    case types.validate_creds_finish:
+      return { ...state, validatingCreds: false };
     default:
       return state;
   }

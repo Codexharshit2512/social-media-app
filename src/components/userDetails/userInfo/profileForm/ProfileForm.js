@@ -5,15 +5,6 @@ const ProfileForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div className="form-group">
-        <label htmlFor="username">Username</label>
-        <input
-          onChange={props.handleChange}
-          value={props.username}
-          type="text"
-          name="username"
-        />
-      </div>
-      <div className="form-group">
         <label htmlFor="location">Location</label>
         <input
           onChange={props.handleChange}

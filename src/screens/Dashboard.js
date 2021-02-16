@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import firebase from "../config/config";
-
+import Header from "../components/global/header/Header";
 import AddPost from "../components/dashboard/addPost/AddPost";
 import Post from "../components/dashboard/post/Post";
 import PostSkeletonContainer from "../components/skeletons/PostSkeletonContainer";
-// import DummyPost from "../components/dashboard/DummyPost";
 import AddPostMobile from "../components/dashboard/addPost/mobile/AddPostMobile";
 import {
   fetchPosts,
@@ -20,42 +19,39 @@ const Dashboard = (props) => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (props.posts.length === 0) {
-  //     dispatch({ type: "POSTS_LOADING" });
-  //     props.fetchPosts();
-  //   } else {
-  //     console.log(props.posts);
-  //     dispatch({ type: "POSTS_LOADING_COMPLETE" });
-  //     setScreams(props.posts);
-  //   }
-  // }, [props.posts]);
+  useEffect(() => {
+    if (props.posts.length === 0) {
+      dispatch({ type: "POSTS_LOADING" });
+      props.fetchPosts();
+    } else {
+      console.log(props.posts);
+      dispatch({ type: "POSTS_LOADING_COMPLETE" });
+      setScreams(props.posts);
+    }
+  }, [props.posts]);
 
-  // const like = (postId) => props.likePost(postId);
+  const like = (postId) => props.likePost(postId);
 
-  // const unlike = (postId) => props.unlikePost(postId);
+  const unlike = (postId) => props.unlikePost(postId);
 
   return (
-    <div className="dashboard-container">
-      <div className="posts-container">
-        <div className="add_post_outer-container">
-          <AddPost />
-        </div>
+    <>
+      <div className="dashboard-container">
+        <div className="posts-container">
+          <div className="add_post_outer-container">
+            <AddPost />
+          </div>
 
-        {/* <DummyPost /> */}
-        {/* <PostSkeletonContainer /> */}
-        {/* {props.loading ? (
-          <PostSkeletonContainer />
-        ) : (
-          screams.map((post) => (
-            <Post data={post} key={post.id} like={like} unlike={unlike} />
-          ))
-        )} */}
+          {props.loading ? (
+            <PostSkeletonContainer />
+          ) : (
+            screams.map((post) => (
+              <Post data={post} key={post.id} like={like} unlike={unlike} />
+            ))
+          )}
+        </div>
       </div>
-      {/* <div className="news">
-        <h1>im news</h1>
-      </div> */}
-    </div>
+    </>
   );
 };
 

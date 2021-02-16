@@ -39,6 +39,31 @@ exports.createNotificationsOnLike = functions.firestore
             createdAt: new Date(),
             postId: doc.id,
             read: false,
+            userPic: snap.data().userPic,
+          };
+          db.doc(`/notifications/${snap.id}`).set(notification);
+        }
+        return true;
+      })
+      .catch((err) => console.log(err));
+  });
+
+exports.createNotificationOnComment = functions.firestore
+  .document("/comments/{commentId}")
+  .onCreate((snap) => {
+    return db
+      .doc(`/posts/${snap.data().postId}`)
+      .get()
+      .then((doc) => {
+        if (doc.data().handle !== snap.data().handle) {
+          const notification = {
+            type: "comment",
+            sender: snap.data().handle,
+            recipient: doc.data().handle,
+            createdAt: new Date(),
+            postId: doc.id,
+            read: false,
+            userPic: snap.data().userPic,
           };
           db.doc(`/notifications/${snap.id}`).set(notification);
         }
@@ -49,6 +74,15 @@ exports.createNotificationsOnLike = functions.firestore
 
 exports.deleteNotificationsOnUnlike = functions.firestore
   .document("/likes/{likeId}")
+  .onDelete((snap) => {
+    return db
+      .doc(`notifications/${snap.id}`)
+      .delete()
+      .catch((err) => console.log(err));
+  });
+
+exports.deleteNotificationsOnCommentDelete = functions.firestore
+  .document("/comments/{commentId}")
   .onDelete((snap) => {
     return db
       .doc(`notifications/${snap.id}`)
@@ -77,7 +111,7 @@ exports.deleteLikesAndComments = functions.firestore
       })
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
-          db.doc(`/comments/${doc.id}`).delete();
+          db.doc(`/notifications/${doc.id}`).delete();
         });
         return true;
       })
@@ -90,24 +124,36 @@ exports.changeUserPic = functions.firestore
     const before = change.before.data();
     const after = change.after.data();
 
-    if (before.profilePic !== after.profilePic) {
+    if (before.userPic !== after.userPic) {
       return db
         .collection("/posts")
-        .where("userPic", "==", before.profilePic)
+        .where("handle", "==", before.handle)
         .get()
         .then((snapshot) => {
           snapshot.docs.forEach((doc) => {
-            db.doc(`/posts/${doc.id}`).update({ userPic: after.profilePic });
+            db.doc(`/posts/${doc.id}`).update({ userPic: after.userPic });
           });
           return db
             .collection("/comments")
-            .where("userPic", "==", before.profilePic)
+            .where("handle", "==", before.handle)
             .get();
         })
         .then((snapshot) => {
           snapshot.docs.forEach((doc) => {
-            db.doc(`/comments/${doc.id}`).update({ userPic: after.profilePic });
+            db.doc(`/comments/${doc.id}`).update({ userPic: after.userPic });
           });
+          return db
+            .collection("/notifications")
+            .where("sender", "==", before.handle)
+            .get();
+        })
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
+            db.doc(`/notifications/${doc.id}`).update({
+              userPic: after.userPic,
+            });
+          });
+          return true;
         })
         .catch((err) => console.log(err));
     }
@@ -130,6 +176,41 @@ exports.changeUserPic = functions.firestore
           snapshot.docs.forEach((doc) => {
             db.doc(`/comments/${doc.id}`).update({ handle: after.handle });
           });
+          return db
+            .collection("/likes")
+            .where("handle", "==", before.handle)
+            .get();
+        })
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
+            db.doc(`/likes/${doc.id}`).update({
+              handle: after.handle,
+            });
+          });
+
+          return db
+            .collection("/notifications")
+            .where("sender", "==", before.handle)
+            .get();
+        })
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
+            db.doc(`/notifications/${doc.id}`).update({
+              sender: after.handle,
+            });
+          });
+          return db
+            .collection("/notifications")
+            .where("recipient", "==", before.handle)
+            .get();
+        })
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
+            db.doc(`/notifications/${doc.id}`).update({
+              recipient: after.handle,
+            });
+          });
+          return true;
         })
         .catch((err) => console.log(err));
     }

@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import UserList from "./UserList";
 import SearchBar from "./SearchBar";
+import firebase from "../../../../config/config";
 
 const HeaderSearchBarContainer = (props) => {
   const [users, setUsers] = useState([]);
   const [results, setResults] = useState([]);
   const [focus, setFocus] = useState(false);
   const [value, setValue] = useState(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
+    setUsers(props.users.users);
+  }, [props.users]);
 
   const handleChange = (val) => {
     if (users.length !== 0 && val !== "") {
-      const re = new RegExp(val);
+      const re = new RegExp(val, "i");
       let arr = [];
       users.forEach((user) => {
-        if (re.test(user.name)) arr.push(user);
+        if (re.test(user.handle)) arr.push(user);
       });
       setResults(arr);
     } else if (val === "") setResults([]);
@@ -36,6 +37,7 @@ const HeaderSearchBarContainer = (props) => {
             focus={focus}
             setValue={setValue}
             value={value}
+            setOpen={() => setOpen((open) => !open)}
           />
           {!focus ? (
             <span className="desktop_search_icon">
@@ -47,11 +49,15 @@ const HeaderSearchBarContainer = (props) => {
               <SearchRoundedIcon />
             </span>
           </div>
-          <UserList results={results} />
+          {open ? <UserList results={results} /> : null}
         </span>
       </div>
     </div>
   );
 };
 
-export default HeaderSearchBarContainer;
+const mapStateToProps = (state) => ({
+  users: state.users,
+});
+
+export default connect(mapStateToProps)(HeaderSearchBarContainer);

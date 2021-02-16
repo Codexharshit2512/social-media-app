@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import firebase from "../../../../config/config";
 import SendRoundedIcon from "@material-ui/icons/SendRounded";
 
 const MobileCommentInput = ({ postId }) => {
   const [commentVal, setValue] = useState("");
 
+  const { username, photo } = useSelector((state) => state.auth.user);
+
   const handlePostComment = (e) => {
     e.preventDefault();
     const newComment = {
-      handle: "harshit",
+      handle: username,
       comment: commentVal,
-      userPic: null,
+      userPic: photo,
       createdAt: new Date(),
       postId,
     };

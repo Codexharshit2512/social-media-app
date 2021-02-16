@@ -12,6 +12,7 @@ const UserImage = (props) => {
 
   useEffect(() => {
     setProfilePic(props.selectedUserPic);
+    console.log(props.selectedUserPic);
   }, [props.selectedUserPic]);
 
   return (

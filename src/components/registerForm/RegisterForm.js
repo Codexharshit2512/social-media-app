@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { signUpUser } from "../../redux/actionsCreators/authActions";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import monkey from "../../images/monkey.svg";
 
 export class RegisterForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       email: "",
       handle: "",
@@ -75,6 +77,7 @@ export class RegisterForm extends Component {
               value={this.state.password}
               onChange={this.handleChange}
               name="password"
+              type="password"
             />
             <div
               className="error_field"
@@ -89,6 +92,7 @@ export class RegisterForm extends Component {
               value={this.state.passwordConfirm}
               onChange={this.handleChange}
               name="confirmPassword"
+              type="password"
             />
             <div
               className="error_field"
@@ -98,9 +102,20 @@ export class RegisterForm extends Component {
             </div>
           </div>
           <div className="register-submit-btn">
-            <button type="submit">Sign Up</button>
+            <button type="submit">
+              {this.props.loading ? <CircularProgress /> : "Sign Up"}
+            </button>
           </div>
         </form>
+        <div className="link_text">
+          <p>
+            Already have an account?
+            <Link to="/signIn">
+              {" "}
+              <span>Sign In</span>
+            </Link>
+          </p>
+        </div>
       </div>
     );
   }
@@ -108,6 +123,7 @@ export class RegisterForm extends Component {
 
 const mapStateToProps = (state) => ({
   errors: state.validation.signUpErrors,
+  loading: state.loaders.validatingCreds,
 });
 
 export default connect(mapStateToProps, null)(RegisterForm);

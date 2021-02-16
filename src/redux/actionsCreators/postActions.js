@@ -51,15 +51,22 @@ export const addPost = ({ postImg, ...rest }) => {
           return snapshot.ref.getDownloadURL();
         })
         .then((url) => {
-          const post = { ...rest, postPic: url };
+          const post = {
+            ...rest,
+            handle: state.auth.user.username,
+            postPic: url,
+            userPic: state.auth.user.photo,
+            uid: state.auth.user.uid,
+          };
           firebase
             .firestore()
             .collection("/posts")
             .add({
               ...post,
-              handle: state.auth.user.username,
+
               likes: 0,
               comments: 0,
+              createdAt: new Date(),
             })
             .then((doc) => {
               const newDoc = {
@@ -68,7 +75,7 @@ export const addPost = ({ postImg, ...rest }) => {
                 comments: 0,
                 id: doc.id,
                 isLiked: false,
-                createdAt: new Date(post.createdAt).toDateString,
+                createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
               };
               dispatch({ type: types.add_post, payload: newDoc });
             });
@@ -83,6 +90,9 @@ export const addPost = ({ postImg, ...rest }) => {
           handle: state.auth.user.username,
           likes: 0,
           comments: 0,
+          createdAt: new Date(),
+          userPic: state.auth.user.photo,
+          uid: state.auth.user.uid,
         })
         .then((doc) => {
           const newDoc = {
@@ -92,7 +102,8 @@ export const addPost = ({ postImg, ...rest }) => {
             handle: state.auth.user.username,
             id: doc.id,
             isLiked: false,
-            createdAt: new Date(post.createdAt).toDateString,
+            createdAt: firebase.firestore.Timestamp.fromDate(new Date()),
+            userPic: state.auth.user.photo,
           };
           dispatch({ type: types.add_post, payload: newDoc });
         });
@@ -100,8 +111,13 @@ export const addPost = ({ postImg, ...rest }) => {
   };
 };
 
-export const deletePost = (postId) => {
+export const deletePost = (postId, data) => {
   return (dispatch, getState) => {
+    if (data.postPic) {
+      const picPath = firebase.storage().refFromURL(data.postPic);
+      // console.log(picPath);
+      firebase.storage().ref().child(picPath.fullPath).delete();
+    }
     firebase.firestore().doc(`/posts/${postId}`).delete();
 
     dispatch({ type: types.delete_post, payload: postId });
@@ -115,6 +131,7 @@ export const likePost = (postId) => {
       postId,
       handle: state.auth.user.username,
       createdAt: new Date(),
+      userPic: state.auth.user.photo,
     };
     firebase.firestore().collection("/likes").add(newLike);
 
@@ -167,14 +184,15 @@ export const unlikePost = (postId) => {
   };
 };
 
-export const fetchUserPosts = (username) => {
+export const fetchUserPosts = (uid) => {
   return (dispatch, getState) => {
     const state = getState();
     // dispatch({ type: types.set_posts, payload: [] });
+    dispatch({ type: "POSTS_LOADING" });
     const readUserPosts = firebase
       .firestore()
       .collection("posts")
-      .where("handle", "==", username)
+      .where("uid", "==", uid)
       .get();
 
     const readPostsLikes = firebase
@@ -186,7 +204,7 @@ export const fetchUserPosts = (username) => {
     Promise.all([readUserPosts, readPostsLikes]).then((res) => {
       const posts = res[0].docs;
       const likes = res[1].docs;
-
+      dispatch({ type: types.set_posts_length, payload: posts.length });
       const userPosts = [],
         userLikes = [];
       posts.forEach((post) =>
@@ -202,6 +220,7 @@ export const fetchUserPosts = (username) => {
       });
       console.log(userPosts);
       dispatch({ type: types.set_posts, payload: userPosts });
+      dispatch({ type: "POSTS_LOADING_COMPLETE" });
     });
   };
 };

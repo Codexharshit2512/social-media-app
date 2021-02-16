@@ -60,7 +60,6 @@ class PostFormContainer extends Component {
       const newPost = {
         body: this.state.body,
         postImg: this.state.postPic,
-        createdAt: new Date(),
       };
 
       this.props.add(newPost);

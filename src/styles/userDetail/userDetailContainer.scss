@@ -1,9 +1,10 @@
 .user_detail_container {
   // margin: 1rem 20% 1rem 20%;
   position: relative;
-  // @media (max-width: 1000px) {
-  //   margin: 1rem 12% 1rem 12%;
-  // }
+  margin-top: 4rem;
+  @media (max-width: 780px) {
+    margin-top: 6.4rem;
+  }
 }
 
 .user_detail_info_container {

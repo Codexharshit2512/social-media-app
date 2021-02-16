@@ -1,19 +1,25 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const UserList = ({ results }) => {
+  const history = useHistory();
+
+  const handleClick = (uid) => {
+    history.push(`/user/${uid}`);
+  };
+
   return (
     <div className="user_list_container">
       <ul className="user_list">
         {results.map((user) => (
-          <li key={user.id} className="user_list_item">
-            {user.name}
+          <li
+            onClick={() => handleClick(user.id)}
+            key={user.id}
+            className="user_list_item"
+          >
+            {user.handle}
           </li>
         ))}
-        {/* <li className="user_list_item">Harshit</li>
-        <li className="user_list_item">Manan</li>
-        <li className="user_list_item">Neha</li>
-        <li className="user_list_item">Akshit</li>
-        <li className="user_list_item">Aditya</li> */}
       </ul>
     </div>
   );
